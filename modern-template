@@ -7,6 +7,10 @@
                 <div class="opt-modern__logo">
                   <div class="logo">
                     <img class="iKOOLCORE" src="https://cdn.shopify.com/s/files/1/0696/1555/0751/files/iKoolCore.png?v=1672203868" alt="logo">
+                    <p style="float: left; text-align: left; margin: 0;"><b>
+                    <big>&nbsp;&nbsp;{{ "now" | date: "%m/%d/%y" }}<br />
+                    &nbsp;&nbsp;Invoice for No.#{{ order_number }}</big></b>
+                  </p>
                   </div>
                 </div>
                 <div class="opt-modern__shop-data">
@@ -24,7 +28,7 @@
                   <div class="divTable">
                     <div class="divTableBody">
                       <div class="divTableRow">
-                        <div class="divTableHead"><b>Items</b></div>
+                        <div class="divTableHead"><b>Items Details</b></div>
                         <div class="divTableHead"><b>Price</b></div>
                         <div class="divTableHead"><b>Quantity</b></div>
                         <div class="divTableHead"><b>Subtotal</b></div>
@@ -34,7 +38,7 @@
                         <div class="divTableCell">
                           <div class="opt__line-item">
                             <div class="opt__line-item--img">
-                              {{ line_item.image | img_url: 'thumb' | img_tag }}
+                              <img src="{{ line_item.product.featured_image | product_img_url: 'thumb' }}" />
                             </div>
                             <div style="text-align: left">
                               <span><b>{{ line_item.title }}</b></span> <br>
@@ -95,12 +99,12 @@
                     </p>
                   </div>
                   <div class="opt-modern__order-number">
-                    <p><b>Order Number</b>
-                      <br>#Placeholder for Prefix{{ order_number }}
+                    <p><b>Order Invoice</b>
+                      <br>No.#{{ order_number }}
                     </p>
                   </div>
                   <div class="opt-modern__order-date">
-                    <p><b>Order Date</b>
+                    <p><b>Invoice Date</b>
                       <br> {{ created_at | date: "%d/%m/%y" }}
                     </p>
                   </div>
@@ -119,13 +123,12 @@
                 <div class="opt__end">
                     <div class="note-placeholder">
                         <p><b>Notes:</b></p>
-                        <p><b>Ubuntu 22.04</b> is pre-installed as default if you have the optional M.2 SSD.<br>Asking help in <a href="https://www.facebook.com/groups/ikoolcore" target="view_window">iKOOLCORE Users Community</a> if you need any technique support.</p>
                     </div>
                     <p class="message-placeholder"></p>
                   </div>
                   <div class="signature-placeholder">
                     <span></span>
-                    <p>If you have any questions, please send an email to <u>{{ shop.email }}</u></p>
+                    <p>If you have any questions, please send an email to <u>{{ shop.email }}.</u></p>
                   </div>
                 </div>
               </div>
