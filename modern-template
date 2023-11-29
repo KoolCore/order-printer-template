@@ -15,9 +15,9 @@
                 </div>
                 <div class="opt-modern__shop-data">
                   <p class="business-data">
-                    {{ shop.owner }}<br/>
+                    <b>iKOOLCORE TECHNOLOGY (HONGKONG) CO., LIMITED</b><br/>
                     {{ shop.address }}<br/>
-                    {{ shop.city }} {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
+                    {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
                     {{ shop.country }}
                   </p>
                 </div>
@@ -122,15 +122,15 @@
               <div class="opt-modern__footer">
                 <div class="opt__end">
                     <div class="note-placeholder">
-                        <p><b>Notes:</b></p>
+                        <p><b>Note:</b><br>If you have any questions, please feel free to contact us via <u>{{ shop.email }}.</u></p>
                     </div>
-                    <p class="message-placeholder"></p>
+                    <p class="message-placeholder">Processed date: {{ processed_at }} </p>
                   </div>
                   <div class="signature-placeholder">
-                    <span></span>
-                    <p>If you have any questions, please send an email to <u>{{ shop.email }}.</u></p>
                   </div>
                 </div>
               </div>
             </div>
+
+
           
