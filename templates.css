@@ -15,7 +15,8 @@ p {
     margin-bottom: 1em;
 }
 
-.opt__order-data {
+.opt__order-data,
+.opt-modern__transaction-details{
     width: 60%;
 }
 
