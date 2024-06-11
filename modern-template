@@ -1,136 +1,114 @@
-
-
-            <link rel="stylesheet" href="https://kmillionary.github.io/order-printer-templates/css/templates.css">
-            <div class="opt">
-              <style></style>
-              <div class="opt-modern__header">
-                <div class="opt-modern__logo">
-                  <div class="logo">
-                    <img class="iKOOLCORE" src="https://cdn.shopify.com/s/files/1/0696/1555/0751/files/iKoolCore.png?v=1672203868" alt="logo">
-                    <p style="float: left; text-align: left; margin: 0;"><b>
-                    <big>&nbsp;&nbsp;{{ "now" | date: "%m/%d/%y" }}<br />
-                    &nbsp;&nbsp;Invoice for No.#{{ order_number }}</big></b>
-                  </p>
-                  </div>
+<link rel="stylesheet" href="https://cdn.shopify.com/s/files/1/0696/1555/0751/files/shopify-invoice-template.css">
+<div class="opt">
+  <div class="opt-modern__header">         
+    <div class="opt-modern__logo">
+      <div class="logo">
+        <img src="https://cdn.shopify.com/s/files/1/0696/1555/0751/files/iKOOLCORE_logo.png" alt="LOGO">
+        <br>
+        <b><big>&nbsp;&nbsp;Order {{ order.order_name }}</big></b><br><br>
+        &nbsp;&nbsp;Order Date: {{ order.created_at | date: "%B %e, %Y %H:%M:%S" }}
+      </div>
+    </div>
+    <div class="opt-modern__shop-data">
+      <p class="business-data">
+        <b>iKOOLCORE TECHNOLOGY (HONGKONG) CO., LIMITED</b><br>
+        {{ shop.address | format_address | upcase }}
+      </p>
+    </div>
+  </div>
+  <div class="opt-modern__body">
+    <div class="opt-modern__order-items">
+      <!-- div table -->
+      <div class="divTable">
+        <div class="divTableBody">
+          <div class="divTableRow">
+            <div class="divTableHead"><b>Items Details</b></div>
+            <div class="divTableHead"><b>Price</b></div>
+            <div class="divTableHead"><b>Quantity</b></div>
+            <div class="divTableHead"><b>Subtotal</b></div>
+          </div>
+          {% for line_item in line_items %}
+          <div class="divTableRow">
+            <div class="divTableCell">
+              <div class="opt__line-item">
+                <div class="opt__line-item--img">
+                  <img src="{{ line_item.product.featured_image | product_img_url: 'thumb' }}" />
                 </div>
-                <div class="opt-modern__shop-data">
-                  <p class="business-data">
-                    <b>iKOOLCORE TECHNOLOGY (HONGKONG) CO., LIMITED</b><br/>
-                    {{ shop.address }}<br/>
-                    {{ shop.province_code }} {{ shop.zip | upcase }}<br/>
-                    {{ shop.country }}
-                  </p>
-                </div>
-              </div>
-              <div class="opt-modern__body">
-                <div class="opt-modern__order-items">
-                  <!-- div table -->
-                  <div class="divTable">
-                    <div class="divTableBody">
-                      <div class="divTableRow">
-                        <div class="divTableHead"><b>Items Details</b></div>
-                        <div class="divTableHead"><b>Price</b></div>
-                        <div class="divTableHead"><b>Quantity</b></div>
-                        <div class="divTableHead"><b>Subtotal</b></div>
-                      </div>
-                      {% for line_item in line_items %}
-                      <div class="divTableRow">
-                        <div class="divTableCell">
-                          <div class="opt__line-item">
-                            <div class="opt__line-item--img">
-                              <img src="{{ line_item.product.featured_image | product_img_url: 'thumb' }}" />
-                            </div>
-                            <div style="text-align: left">
-                              <span><b>{{ line_item.title }}</b></span> <br>
-                              <span>{{ line_item.sku }}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="divTableCell">
-                          {% if variant.compare_at_price != variant.price %}
-                          <s>{{ variant.compare_at_price | money }}</s>
-                          {% endif %}
-                          {{ line_item.price | money }}
-                        </div>
-                        <div class="divTableCell"><center>{{ line_item.quantity }}</center></div>
-                        <div class="divTableCell">
-                          {% assign subtotal = line_item.price | times: line_item.quantity |
-                          money %}
-                          {{ subtotal }}
-                        </div>
-                      </div>
-                      {% endfor %}
-
-                    </div>
-                  </div>
-                  <!-- end div table -->
-                  <div class="opt-modern__order-summary payment-data">
-                    <div class="divTable">
-                      <div class="divTableBody">
-                        <div class="divTableRow">
-                          <div class="divTableCell">Discounts</div>
-                          <div class="divTableCell"> -{{ total_discounts | money }} </div>
-                        </div>
-                        <div class="divTableRow">
-                          <div class="divTableCell">Subtotal</div>
-                          <div class="divTableCell">{{ subtotal_price | money }}</div>
-                        </div>
-                        <div class="divTableRow">
-                          <div class="divTableCell">Shipping</div>
-                          <div class="divTableCell">{{ shipping_price | money }}</div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="total">
-                      <p><b>Total Price</b></p>
-                      <p>{{ total_price | money }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="opt-modern__order-data">
-                  <div class="opt-modern__order-total payment-data">
-                    <p><b>Total Price</b></p>
-                    <h3>{{ total_price | money }}</h3>
-                  </div>
-                  <div class="opt-modern__cust-data">
-                    <p class="order-data">
-                        <strong>{{ shipping_address.name }}</strong><br/>
-                        {{ shipping_address | format_address }}
-                    </p>
-                  </div>
-                  <div class="opt-modern__order-number">
-                    <p><b>Order Invoice</b>
-                      <br>No.#{{ order_number }}
-                    </p>
-                  </div>
-                  <div class="opt-modern__order-date">
-                    <p><b>Invoice Date</b>
-                      <br> {{ created_at | date: "%d/%m/%y" }}
-                    </p>
-                  </div>
-                  <div class="opt-modern__payment-status payment-data">
-                    <p><b>Status</b>
-                      {% if total_price == total_paid %}
-                      <br><small>Paid</small>
-                      {% else %}
-                      <br><small>Pending</small>
-                      {% endif %}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="opt-modern__footer">
-                <div class="opt__end">
-                    <div class="note-placeholder">
-                        <p><b>Note:</b><br>If you have any questions, please feel free to contact us via <u>{{ shop.email }}.</u></p>
-                    </div>
-                    <p class="message-placeholder">Processed date: {{ processed_at }} </p>
-                  </div>
-                  <div class="signature-placeholder">
-                  </div>
+                <div style="text-align: left">
+                  <span><b>{{ line_item.title }}</b></span> <br>
+                  <span>{{ line_item.sku }}</span>
                 </div>
               </div>
             </div>
-
-
-          
+            <div class="divTableCell">
+              {% if variant.compare_at_price != variant.price %}
+              <s>{{ variant.compare_at_price | money }}</s>
+              {% endif %}
+              {{ line_item.price | money }}
+            </div>
+            <div class="divTableCell"><center>{{ line_item.quantity }}</center></div>
+            <div class="divTableCell">
+              {% assign subtotal = line_item.price | times: line_item.quantity | money %}
+              {{ subtotal }}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- end div table -->
+      <div class="opt-modern__order-summary payment-data">
+        <div class="divTable">
+          <div class="divTableBody">
+            <div class="divTableRow">
+              <div class="divTableCell">Discounts</div>
+              <div class="divTableCell"> - {{ discount.savings | money }} </div>
+            </div>
+            <div class="divTableRow">
+              <div class="divTableCell">Subtotal</div>
+              <div class="divTableCell">{{ order.subtotal_price | money }}</div>
+            </div>
+            <div class="divTableRow">
+              <div class="divTableCell">Shipping</div>
+              <div class="divTableCell">{{ order.shipping_price | money }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="total">
+          <p><b>Total Price</b></p>
+          <p><strong>{{ order.total_price | money }}</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="opt-modern__order-data">
+      <div class="opt-modern__order-total payment-data">
+        <p><b>Total Price</b></p><br>
+        <h3><strong>{{ order.total_price | money }}</strong></h3>
+      </div>
+      <div class="opt-modern__cust-data">
+        <p class="order-data">
+          <strong>{{ shipping_address.name }}</strong><br>
+          {{ order.shipping_address | format_address  }}
+        </p>
+      </div>
+      <div class="opt-modern__payment-status payment-data">
+        <p><b>Status</b>
+          {% if total_price == total_paid %}
+          <br><small>Paid</small>
+          {% else %}
+          <br><small>Pending</small>
+          {% endif %}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="opt-modern__footer">
+    <div class="opt__end">
+      <div class="note-placeholder">
+        <p><b>Note:</b><br>If you have any questions, please feel free to contact us via <u>{{ shop.email }}.</u></p>
+      </div>
+      <p class="message-placeholder">Processed Date: {{ order.created_at | date: "%B %e, %Y %H:%M:%S" }}</p>
+    </div>
+    <div class="signature-placeholder">
+    </div>
+  </div>
+</div>
